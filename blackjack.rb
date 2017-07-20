@@ -24,25 +24,39 @@ end
 
 def firstTurn
   randomCard = getRandomCard
-  valueOfFaceCard(randomCard)
+  valueOfFaceCard(randomCard) # if the randomCard is equal to A,J,Q, or K, it sets an appropriate value
   puts "You have $#{$totalMoney} and bet $#{$bet}."
-  print "You have a #{randomCard} and a "
-  cardOne = $randomCardValue
-  randomCard = getRandomCard
+  print "You have a #{randomCard} and a " # displays the first random card
+  $cardOneRank = randomCard
+  $cardOne = $randomCardValue # sets value of the first random card
+  randomCard = getRandomCard # runs .sample again to get the second card before displaying it
   print "#{randomCard} in your hand. "
-  valueOfFaceCard(randomCard)
-  cardTwo = $randomCardValue
-  totalHandValue = cardOne + cardTwo
-  print "Your total is #{totalHandValue}."
+  $cardTwoRank = randomCard
+  valueOfFaceCard(randomCard) # sets appropriate value again
+  $cardTwo = $randomCardValue # sets value of the second random card
+  $totalHandValue = $cardOne + $cardTwo
+  print "Your total is #{$totalHandValue}."
   puts
   print "Do you want to (h)it or (s)tand? "
 end
 
 def hitOrStand(choice)
   if choice == "h"
-    puts "You hit."
+    randomCard = getRandomCard # runs randomization again
+    valueOfFaceCard(randomCard) # converts face cards to value equivilent
+    $cardThree = $randomCardValue
+    $totalHandValue = 0
+    $totalHandValue = $cardOne + $cardTwo + $cardThree
+    puts
+    puts "You hit. You now have a #{$cardOneRank}, #{$cardTwoRank}, and #{randomCard} in your hand. Your total is #{$totalHandValue}."
+    puts
+    print "Do you want to (h)it or (s)tand? "
+    userChoice = gets
+    hitOrStand(userChoice.chomp)
   elsif choice == "s"
-    puts "You stand."
+    puts
+    puts "You stand. Your total is #{$totalHandValue}."
+    puts
   else
     print "Invalid choice, (h)it or (s)tand? "
     userChoice = gets
