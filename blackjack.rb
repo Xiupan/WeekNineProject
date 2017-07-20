@@ -49,6 +49,10 @@ def hitOrStand(choice)
     $totalHandValue = $cardOne + $cardTwo + $cardThree
     puts
     puts "You hit. You now have a #{$cardOneRank}, #{$cardTwoRank}, and #{randomCard} in your hand. Your total is #{$totalHandValue}."
+    if $totalHandValue > 21
+      bust
+      return firstTurn
+    end
     puts
     print "Do you want to (h)it or (s)tand? "
     userChoice = gets
@@ -62,6 +66,10 @@ def hitOrStand(choice)
     userChoice = gets
     hitOrStand(userChoice.chomp)
   end
+end
+
+def bust
+  puts "You bust!"
 end
 
 puts
