@@ -1,8 +1,8 @@
-
 $totalMoney = 100
 $bet = 10
 $cards = ["A",2,3,4,5,6,7,8,9,"J","Q","K"]
 $randomCardValue = 0
+$totalDealerHandValue = 0
 
 def greeting
   puts "Hello and welcome to the game of blackjack! Let's begin."
@@ -20,6 +20,34 @@ def valueOfFaceCard(input)
   else
     $randomCardValue = input
   end
+end
+
+
+
+def dealerFirstTurn
+  dealerCardOne = getRandomCard
+  valueOfFaceCard(dealerCardOne)
+  $totalDealerHandValue += $randomCardValue
+  dealerCardTwo = getRandomCard
+  valueOfFaceCard(dealerCardTwo)
+  $totalDealerHandValue += $randomCardValue
+
+  # case $totalDealerHandValue
+  # when 0..16 then
+  #   puts "The dealer hits."
+  #   dealerNextCard = getRandomCard
+  #   valueOfFaceCard(dealerNextCard)
+  #   $totalDealerHandValue += $randomCardValue
+  # when 17..21 then
+  #   print "The dealer stands. "
+  #   return
+  # when 22..9999 then
+  #   puts
+  #   puts "The dealer busts!"
+  #   return
+  # end
+  # print "The dealer has a total of #{$totalDealerHandValue}."
+  # puts
 end
 
 def firstTurn
@@ -66,6 +94,7 @@ def hitOrStand(choice)
     userChoice = gets
     hitOrStand(userChoice.chomp)
   end
+  dealerFirstTurn
 end
 
 def bust
